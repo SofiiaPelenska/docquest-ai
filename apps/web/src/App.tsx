@@ -12,6 +12,8 @@ export default function App() {
   }, []);
 
   console.log("API response received");
+
+  console.log("jfk");
   console.log("jfk");
 
   return (
