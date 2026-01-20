@@ -11,11 +11,6 @@ export default function App() {
       .catch(() => setStatus("error"));
   }, []);
 
-  console.log("API response received");
-
-  console.log("jfk");
-  console.log("jfk");
-
   return (
     <div className="min-h-screen p-8 space-y-4">
       <div className="text-2xl font-semibold">DocQuest AI </div>
