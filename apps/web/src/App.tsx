@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react";
+import { AppShell, type NavKey } from "./AppShell";
+import { DashboardPage } from "@/pages/DashboardPage";
+import { HistoryPage } from "@/pages/HistoryPage";
 
 export default function App() {
-  const [status, setStatus] = useState("...");
+  const [active, setActive] = useState<NavKey>("Dashboard");
 
-  useEffect(() => {
-    fetch("http://localhost:8000/health")
-      .then((r) => r.json())
-      .then((d) => setStatus(d.status))
-      .catch(() => setStatus("error"));
-  }, []);
+  const content = useMemo(() => {
+    switch (active) {
+      case "History":
+        return <HistoryPage />;
+      case "Dashboard":
+      default:
+        return <DashboardPage />;
+    }
+  }, [active]);
 
   return (
-    <div className="min-h-screen p-8 space-y-4">
-      <div className="text-2xl font-semibold">DocQuest AI </div>
-      <div className="text-sm text-muted-foreground">API status: {status}</div>
-      <Button>Run OCR</Button>
-    </div>
+    <AppShell active={active} onNavigate={setActive} title="Image Optimization & Analysis">
+      {content}
+    </AppShell>
   );
 }
